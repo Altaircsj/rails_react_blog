@@ -8,7 +8,9 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     #de onde vem os requests, endereço de IP ou URL do front-end react
-    origins "http://127.0.0.1:5173" #alterar para o endereço do front-end
+    origins "http://localhost:5173" #alterar para o endereço do front-end
+    #origins "http://127.0.0.1:5173", "http://localhost:5173" #existe diferença entre localhost e IP
+
     # origins '*' #permite qualquer origem
     # origins 'http://example.com', 'http://another.com'
 
