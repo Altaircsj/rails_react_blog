@@ -5,7 +5,7 @@ import { API_URL } from "../../constants";
 function PostsList() {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [, setError] = useState(null);
+  const [error, setError] = useState(null);
   // Fetch posts from the API
   useEffect(() => {
     async function loadPosts() {
@@ -18,7 +18,7 @@ function PostsList() {
           throw response;
         }
       } catch (e) {
-        setError("An error occurred. Awkward...");
+        setError("Não conectou com a API");
         console.log("Ocorreu um erro:", e);
       } finally {
         setLoading(false);
@@ -26,6 +26,8 @@ function PostsList() {
     }
     loadPosts();
   }, []);
+
+  if (error) return <h2>{error}</h2>;
 
   if (loading) return <h2>Loading...</h2>;
 
