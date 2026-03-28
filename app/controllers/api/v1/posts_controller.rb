@@ -18,9 +18,11 @@ class Api::V1::PostsController < ApplicationController
     @post = Post.new(post_params)
 
     if @post.save
+      #render json: @post, status: :created, location: @post #antigo, sem namespace
       ## não podemos renderizar @post por que estamos em /api/v1/posts e não em /posts
-      #render json: @post, status: :created, location: @post
+
       render json: @post, status: :created, location: api_v1_post_url(@post)
+      #render json: @post, status: :created, location: [:api, :v1, @post] #outra forma de escrever a url
     else
       render json: @post.errors, status: :unprocessable_entity
     end
