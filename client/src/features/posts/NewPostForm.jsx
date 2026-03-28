@@ -8,7 +8,7 @@ function NewPostForm() {
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault(); // sem isso a página recarregaria, continuando na rota /new após o submit
 
     const postData = { title, body };
 
@@ -33,7 +33,7 @@ function NewPostForm() {
       <h2>Create a New Post</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="titleInput">Title:</label>
           <input
             id="titleInput"
             type="text"
