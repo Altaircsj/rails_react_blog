@@ -23,6 +23,7 @@ class Api::V1::PostsController < ApplicationController
 
       render json: @post, status: :created, location: api_v1_post_url(@post)
       #render json: @post, status: :created, location: [:api, :v1, @post] #outra forma de escrever a url
+
     else
       render json: @post.errors, status: :unprocessable_entity
     end
