@@ -5,6 +5,8 @@ import { API_URL } from "../../constants";
 function PostDetails() {
   const [post, setPost] = useState(null);
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchCurrentPost = async () => {
@@ -22,14 +24,18 @@ function PostDetails() {
     };
     fetchCurrentPost();
   }, [id]);
-
-  // if (!post) return <h2>Loading...</h2>;
-
+  
+  if (!post) return <h2>Loading...</h2>;  //outra opção 'if (loading) return <h2>Loading...</h2>' e 'if (error) return <h2>{error}</h2>'
+  //outra opção 'post?.title' abaixo
+  //outra opção 'post && post.title' abaixo
   return (
     <div>
-      <h2>{post?.title}</h2>
-      {post && <p>{post.body}</p>}
+      <h2>{post.title}</h2>
+      <p>{post.body}</p>
+      {/* <h2>{post?.title}</h2> */}
       {/* <p>{post?.body}</p> */}
+      {/* post && <h2>{post.title}</h2> */}
+      {/* post && <p>{post.body}</p> */}
       <Link to="/">Back to Posts</Link>
     </div>
   );
