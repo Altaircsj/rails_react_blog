@@ -28,10 +28,28 @@ function PostsList() {
     loadPosts();
   }, []);
 
+  const deletePost = async (id) => {
+    try {
+      const response = await fetch(`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        //precisa alterar o controller para retornar o post deletado
+        //const json = await response.json(); 
+        //console.log(json);
+
+        setPosts(posts.filter((post) => post.id !== id));
+        //setPosts(prev => prev.filter(post => post.id !== id)) // usando functional update
+      } else {
+        throw response;
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+
   if (error) return <h2>{error}</h2>;
-
   if (loading) return <h2>Loading...</h2>;
-
   return (
     <div>
       {posts.map((post) => (
@@ -41,7 +59,9 @@ function PostsList() {
               {post.title}
             </Link>
           </h2>
-          <p>{post.body}</p>
+          <div className="post-links">
+            <button onClick={() => deletePost(post.id)}>Deletar</button>
+          </div>
         </div>
       ))}
     </div>
