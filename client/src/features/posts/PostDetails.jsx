@@ -7,6 +7,7 @@ function PostDetails() {
   const { id } = useParams();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCurrentPost = async () => {
@@ -25,6 +26,21 @@ function PostDetails() {
     fetchCurrentPost();
   }, [id]);
   
+  const deletePost = async () => {
+    try {
+      const response = await fetch (`${API_URL}/${id}`, {
+        method: "DELETE",
+      });
+      if (response.ok) {
+        navigate("/");
+      } else {
+        throw response;
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   if (!post) return <h2>Loading...</h2>;  //outra opção 'if (loading) return <h2>Loading...</h2>' e 'if (error) return <h2>{error}</h2>'
   //outra opção 'post?.title' abaixo
   //outra opção 'post && post.title' abaixo
@@ -37,6 +53,8 @@ function PostDetails() {
       {/* post && <h2>{post.title}</h2> */}
       {/* post && <p>{post.body}</p> */}
       <Link to="/">Back to Posts</Link>
+      {" | "}
+      <button onClick={deletePost}>Delete</button>
     </div>
   );
 }
